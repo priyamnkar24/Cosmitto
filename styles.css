@@ -89,7 +89,7 @@ header .container {
     font-weight: 900;
     color: transparent; /* Makes the text fill transparent */
     -webkit-text-stroke: 1px white; /* White border around the text */
-    text-stroke: 0px white; /* Standard property (for future compatibility) */
+    text-stroke: 2px white; /* Standard property (for future compatibility) */
     text-transform: uppercase;
     margin: 0;
     letter-spacing: 5px;
@@ -138,7 +138,7 @@ header .container {
 .batman-logo {
     position: absolute;
     top: 50%;
-    left: 50.5%;
+    left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
 
