@@ -1,0 +1,350 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    color: #fff;
+    background-color: #111;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative; /* Ensure container doesn’t interfere with absolute positioning */
+    z-index: 2; /* Above logo and grid */
+}
+/* Header */
+header {
+    background-color: #1a1a1a;
+    padding: 1rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.8rem;
+    color: #00ffcc;
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-menu a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.3s;
+}
+
+.nav-menu a:hover {
+    color: #00ffcc;
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+}
+
+/* Hero Section (Landing Page with Grid) */
+.hero {
+    height: 100vh;
+    background-color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Added to center content horizontally */
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 5rem;
+    color: #00ffcc;
+    margin-bottom: 1rem;
+    z-index: 2;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    color: #ccc;
+    margin-bottom: 2rem;
+    z-index: 2;
+}
+
+/* Grid Container */
+.grid-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* Ensure the SVG inside is styled */
+.highlight-batman svg {
+    width: 100%;
+    height: 100%;
+    fill: rgba(255, 255, 255, 0.5); /* Bright center like the torch */
+    opacity: 0.8; /* Slightly less than 1 for blending */
+}
+
+/* Grid Lines */
+.grid-lines {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
+}
+
+/* Batman Logo Styling */
+.batman-logo {
+    position: absolute;
+    top: 50%;
+    left: 57.5%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+
+    z-index: 1; /* Above grid, below text */
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.batman-logo img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    opacity: 0; /* Initially transparent as per previous requirement */
+    filter: drop-shadow(0 0 5px rgba(0, 255, 204, 0));
+    transition: opacity 0.3s ease;
+}
+
+.highlight-line {
+    position: absolute;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 204, 0.9), transparent); /* Glowing gradient */
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.6); /* Stronger glow */
+    opacity: 0;
+    pointer-events: none;
+}
+
+.highlight-line.horizontal {
+    width: 100%;
+    height: 2px;
+    animation: pulseHorizontal 1.5s infinite ease-in-out; /* Pulsing animation */
+}
+
+.highlight-line.vertical {
+    width: 2px;
+    height: 100%;
+    animation: pulseVertical 1.5s infinite ease-in-out; /* Pulsing animation */
+}
+
+.highlight-line.active {
+    opacity: 1; /* Visible when mouse is over */
+}
+
+/* Hero Text */
+.hero-title, .hero-subtitle {
+    position: relative;
+    z-index: 2; /* Above logo */
+}
+/* Highlight Circle (Torch) */
+.highlight-circle {
+    position: absolute;
+    width: 50px; /*changes the size of torch*/
+    height: 50px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 2; /* Above logo for interaction */
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 20px rgba(0, 255, 204, 0.8), 0 0 40px rgba(0, 255, 204, 0.6);
+}
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #00ffcc;
+    color: #111;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 700;
+    z-index: 2;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #00cc99;
+}
+
+/* Sections */
+.section {
+    padding: 5rem 0;
+    background-color: #222;
+}
+
+h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5rem;
+    color: #00ffcc;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.about-content {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    padding: 2rem;
+    background-color: #333;
+    border-radius: 10px;
+    transform-origin: center center;
+    transition: transform 0.3s ease;
+}
+
+/* Portfolio Section */
+.portfolio-grid {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 2rem;
+    overflow-x: hidden;
+}
+
+.portfolio-item {
+    flex: 0 0 auto;
+    width: 400px;
+    background-color: #333;
+    padding: 1rem;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.portfolio-item img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.portfolio-item h3 {
+    margin: 1rem 0;
+    color: #00ffcc;
+}
+
+.portfolio-item p {
+    color: #ccc;
+}
+
+/* Footer */
+footer {
+    background-color: #1a1a1a;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+.insta-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #00ffcc;
+    color: #111;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 700;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.insta-btn:hover {
+    background-color: #00cc99;
+    transform: scale(1.05);
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: #1a1a1a;
+        padding: 1rem;
+    }
+
+    .nav-menu.active {
+        display: flex;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .about-content {
+        flex-direction: column;
+        text-align: center;
+        padding: 1rem;
+    }
+
+    .portfolio-item {
+        width: 300px;
+    }
+
+    .grid-lines {
+        background-size: 15px 15px;
+    }
+
+    .highlight-circle {
+        width: 100px;
+        height: 100px;
+    }
+
+    /* Add these new keyframes at the bottom of styles.css */
+@keyframes pulseHorizontal {
+    0% { transform: scaleX(0.8); opacity: 0.5; }
+    50% { transform: scaleX(1); opacity: 1; }
+    100% { transform: scaleX(0.8); opacity: 0.5; }
+}
+
+@keyframes pulseVertical {
+    0% { transform: scaleY(0.8); opacity: 0.5; }
+    50% { transform: scaleY(1); opacity: 1; }
+    100% { transform: scaleY(0.8); opacity: 0.5; }
+}
+}
