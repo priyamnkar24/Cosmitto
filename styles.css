@@ -85,10 +85,15 @@ header .container {
 }
 
 .hero-title {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 5rem;
-    color: #00ffcc;
-    margin-bottom: 1rem;
+    font-size: 12rem;
+    font-weight: 900;
+    color: transparent; /* Makes the text fill transparent */
+    -webkit-text-stroke: 1px white; /* White border around the text */
+    text-stroke: 0px white; /* Standard property (for future compatibility) */
+    text-transform: uppercase;
+    margin: 0;
+    letter-spacing: 5px;
+    position: relative;
     z-index: 2;
 }
 
@@ -133,9 +138,9 @@ header .container {
 .batman-logo {
     position: absolute;
     top: 50%;
-    left: 57.5%;
+    left: 50.5%;
     transform: translate(-50%, -50%);
-    width: 80%;
+    width: 100%;
 
     z-index: 1; /* Above grid, below text */
     pointer-events: none;
