@@ -84,12 +84,13 @@ header .container {
     overflow: hidden;
 }
 
+
 .hero-title {
     font-size: 12rem;
     font-weight: 900;
     color: transparent; /* Makes the text fill transparent */
     -webkit-text-stroke: 1px white; /* White border around the text */
-    text-stroke: 2px white; /* Standard property (for future compatibility) */
+    text-stroke: 1px white; /* Standard property (for future compatibility) */
     text-transform: uppercase;
     margin: 0;
     letter-spacing: 5px;
@@ -148,6 +149,8 @@ header .container {
     justify-content: center;
     align-items: center;
 }
+
+
 
 .batman-logo img {
     width: 100%;

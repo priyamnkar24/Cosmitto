@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const batmanLogo = document.querySelector('.batman-logo img');
     const messageDiv = document.querySelector('#backend-message');
     const heroSection = document.querySelector('.hero');
+    const heroTitle = document.querySelector('.hero-title');
 
     // GSAP Animations for Grid and Logo
     gsap.from(gridContainer, {
@@ -27,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let hasFetched = false;
     let isTouching = false;
+    let isGlowing = false;
 
     // Function to Update Torch Position and Effects
     const updateTorch = (x, y) => {
@@ -53,14 +55,31 @@ document.addEventListener('DOMContentLoaded', () => {
         const screenWidth = window.innerWidth;
         let maxDistance = Math.max(logoRect.width, logoRect.height) / 2 + (screenWidth <= 480 ? 30 : screenWidth <= 768 ? 40 : 50);
 
-        // Update logo opacity and glow
+        // Update logo opacity
         let glowIntensity = 0;
         let logoOpacity = 0;
         if (distance < maxDistance) {
             glowIntensity = 1 - (distance / maxDistance);
             logoOpacity = glowIntensity;
-            glowIntensity = Math.max(0.2, glowIntensity);
             logoOpacity = Math.max(0.1, logoOpacity);
+
+            // Start glow animation on logo if not already glowing
+            if (!isGlowing) {
+                isGlowing = true;
+                gsap.to(batmanLogo, {
+                    filter: `drop-shadow(0 0 20px rgba(0, 255, 204, 1)) drop-shadow(0 0 40px rgba(0, 255, 204, 0.7))`,
+                    duration: 0.8,
+                    ease: 'power2.out'
+                });
+
+                // Make COSMITTO text fade out and move downward
+                gsap.to(heroTitle, {
+                    opacity: 0,
+                    y: 50,
+                    duration: 0.8,
+                    ease: 'power2.out'
+                });
+            }
 
             // Fetch backend message only once
             if (!hasFetched) {
@@ -76,11 +95,28 @@ document.addEventListener('DOMContentLoaded', () => {
                         messageDiv.textContent = 'Error connecting to backend';
                     });
             }
+        } else {
+            // Reset glow and text opacity if torch moves away
+            if (isGlowing) {
+                isGlowing = false;
+                gsap.to(batmanLogo, {
+                    filter: `drop-shadow(0 0 5px rgba(0, 255, 204, 0))`,
+                    duration: 2,
+                    ease: 'power2.out'
+                });
+
+                // Make COSMITTO text fade in and move back up
+                gsap.to(heroTitle, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 2,
+                    ease: 'power2.out'
+                });
+            }
         }
 
+        // Apply base opacity (no inline filter updates)
         batmanLogo.style.opacity = logoOpacity;
-        batmanLogo.style.filter = `drop-shadow(0 0 10px rgba(0, 255, 204, ${glowIntensity})) 
-                                   drop-shadow(0 0 20px rgba(0, 255, 204, ${glowIntensity * 0.7}))`;
 
         // Update grid lines
         const radius = screenWidth <= 480 ? 30 : screenWidth <= 768 ? 40 : 50;
@@ -116,7 +152,25 @@ document.addEventListener('DOMContentLoaded', () => {
             ease: 'power2.out'
         });
         batmanLogo.style.opacity = 0;
-        batmanLogo.style.filter = `drop-shadow(0 0 5px rgba(0, 255, 204, 0))`;
+
+        // Reset glow and text opacity on reset
+        if (isGlowing) {
+            isGlowing = false;
+            gsap.to(batmanLogo, {
+                filter: `drop-shadow(0 0 5px rgba(0, 255, 204, 0))`,
+                duration: 0.8,
+                ease: 'power2.out'
+            });
+
+            // Make COSMITTO text fade in and move back up
+            gsap.to(heroTitle, {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: 'power2.out'
+            });
+        }
+
         messageDiv.textContent = '';
         hasFetched = false;
         isTouching = false;
@@ -133,14 +187,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Touch Events
     heroSection.addEventListener('touchstart', (e) => {
-        e.preventDefault(); // Prevent scrolling
+        e.preventDefault();
         isTouching = true;
         const touch = e.touches[0];
         updateTorch(touch.clientX, touch.clientY);
     });
 
     heroSection.addEventListener('touchmove', (e) => {
-        e.preventDefault(); // Prevent scrolling
+        e.preventDefault();
         if (isTouching) {
             const touch = e.touches[0];
             updateTorch(touch.clientX, touch.clientY);
